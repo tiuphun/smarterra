@@ -1,6 +1,7 @@
 // controllers/commandController.js
 const Command = require('../models/Command');
-const mqttClient = require('../server');
+const mqttClient = require('../mqttClient');
+const config = require('../config')
 
 exports.sendCommand = async (req, res) => {
   const { fan, duration } = req.body;

@@ -4,7 +4,6 @@ const mqtt = require('mqtt');
 const mongoose = require('mongoose');
 const config = require('./config');
 
-// Initialize Express app
 const app = express();
 app.use(express.json());
 
