@@ -2,9 +2,17 @@
 const mongoose = require('mongoose');
 
 const commandSchema = new mongoose.Schema({
-  fan: Boolean,
-  duration: Number,
-  timestamp: { type: Date, default: Date.now }
+  duration: {
+    type: Number,
+    required: false,
+  },
+  // Dynamic fields for actuators
+  actuators: {
+    type: Map,
+    of: Boolean,
+    required: false,
+  },
 });
 
-module.exports = mongoose.model('Command', commandSchema);
+const Command = mongoose.model('Command', commandSchema);
+module.exports = Command;
