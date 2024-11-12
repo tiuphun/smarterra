@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 const commandSchema = new mongoose.Schema({
   fan: Boolean,
+  pump: Boolean,
   duration: Number,
   timestamp: { type: Date, default: Date.now }
 });
