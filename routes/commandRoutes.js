@@ -1,8 +1,18 @@
-// routes/commandRoutes.js
 const express = require('express');
-const router = express.Router();
-const commandController = require('../controllers/commandController');
+const {
+  getAllCommands,
+  getCommandById,
+  createCommand,
+  updateCommandById,
+  deleteCommandById,
+} = require('../controllers/commandController');
 
-router.post('/send', commandController.sendCommand);
+const router = express.Router();
+
+router.get('/', getAllCommands);
+router.post('/', createCommand);
+router.get('/:id', getCommandById);
+router.put('/:id', updateCommandById);
+router.delete('/:id', deleteCommandById);
 
 module.exports = router;
