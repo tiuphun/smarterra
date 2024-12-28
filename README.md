@@ -52,6 +52,22 @@ const commandSchema = new mongoose.Schema({
 - **duration**: The duration for which the command should be executed (in seconds).
 - **timestamp**: The date and time when the command was issued (Date).
 
+
+### 3. KeepAlive Model
+The KeepAlive model represents the keep-alive status of the circuits.
+
+```javascript
+const keepAliveSchema = new mongoose.Schema({
+  Id: { type: Number, required: true },
+  alive: { type: Boolean, required: true },
+  timestamp: { type: Date, default: Date.now }
+});
+```
+#### Fields:
+- **Id**: The unique identifier for each circuit (integer).
+- **alive**: A boolean indicating whether the circuit is alive (`true`) or not (`false`).
+- **timestamp**: The date and time when the keep-alive message was received (Date).
+
 ---
 
 ## API Endpoints
@@ -195,6 +211,31 @@ const commandSchema = new mongoose.Schema({
 ```json
 {
   "message": "Command with Id 1 has been deleted successfully"
+}
+```
+
+### 3. **KeepAlive Endpoints**
+#### `GET /api/KeepAlive`
+- **Description**: Retrieve all keep-alive records.
+- **Response Example**:
+```json
+[
+  {
+    "Id": 1,
+    "alive": true,
+    "timestamp": "2024-12-03T12:00:00Z"
+  }
+]
+```
+
+#### `GET /api/KeepAlive/{id}`
+- **Description**: Retrieve a specific keep-alive record by its `Id`.
+- **Response Example**:
+```json
+{
+  "Id": 1,
+  "alive": true,
+  "timestamp": "2024-12-03T12:00:00Z"
 }
 ```
 
