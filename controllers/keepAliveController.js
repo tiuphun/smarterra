@@ -21,3 +21,13 @@ exports.getKeepAliveById = async (req, res) => {
     res.status(500).json({ error: 'Server error while retrieving keep-alive data' });
   }
 };
+
+exports.postKeepAlive = async (req, res) => {
+  try {
+    const newKeepAlive = new KeepAlive(req.body);
+    await newKeepAlive.save();
+    res.status(201).json(newKeepAlive);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};

@@ -13,11 +13,11 @@ const commandTopic = 'ict66/smarterra/commands/';
 // Subscribe to sensor data and keep-alive topics
 client.on('connect', () => {
   console.log('Connected to MQTT broker');
-  client.subscribe([sensorTopic, keepAliveTopic], (err) => {
+  client.subscribe([sensorTopic, keepAliveTopic, commandTopic], (err) => {
     if (err) {
       console.error('Failed to subscribe to topics:', err.message);
     } else {
-      console.log('Subscribed to topics:', sensorTopic, keepAliveTopic);
+      console.log('Subscribed to topics:', sensorTopic, keepAliveTopic, commandTopic);
     }
   });
 });
