@@ -26,6 +26,17 @@ exports.postKeepAlive = async (req, res) => {
   try {
     const newKeepAlive = new KeepAlive(req.body);
     await newKeepAlive.save();
+
+    // Publish the keep-alive data to the keepAliveTopic
+    const keepAliveMessage = JSON.stringify(req.body);
+    client.publish(topics.keepAliveTopic, keepAliveMessage, (err) => {
+      if (err) {
+        console.error('Error publishing keep-alive data:', err.message);
+        return res.status(500).json({ error: 'Failed to send keep-alive data to broker' });
+      }
+      console.log('Keep-alive data published:', keepAliveMessage);
+    });
+
     res.status(201).json(newKeepAlive);
   } catch (error) {
     res.status(400).json({ error: error.message });

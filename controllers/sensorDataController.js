@@ -29,5 +29,16 @@ exports.getSensorDataById = async (req, res) => {
 exports.createSensorData = async (req, res) => {
   const newData = new SensorData(req.body);
   await newData.save();
+
+  // Publish the sensor data to the sensorTopic
+  const sensorDataMessage = JSON.stringify(req.body);
+  client.publish(topics.sensorTopic, sensorDataMessage, (err) => {
+    if (err) {
+      console.error('Error publishing sensor data:', err.message);
+      return res.status(500).json({ error: 'Failed to send sensor data to broker' });
+    }
+    console.log('Sensor data published:', sensorDataMessage);
+  });
+
   res.status(201).json(newData);
 };
