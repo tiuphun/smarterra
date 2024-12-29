@@ -1,8 +1,11 @@
 const mqtt = require('mqtt');
+const KeepAlive = require('../models/keepAlive'); // Import KeepAlive model
+const SensorData = require('../models/sensorData'); // Import SensorData model
+
 
 const client = mqtt.connect('mqtt://broker.hivemq.com:1883', {
-  username: 'emqx',
-  password: 'public',
+  // username: 'emqx',
+  // password: 'public',
 });
 
 // MQTT Topics
@@ -24,9 +27,10 @@ client.on('connect', () => {
 
 // Handle incoming messages
 client.on('message', (topic, message) => {
+  console.log('Received keep-alive message:', message.toString());
   if (topic === keepAliveTopic) {
     // Handle keep-alive messages
-    console.log('Received keep-alive message:', message.toString());
+    console.log('Processing keep-alive message');
     try {
       const parsedMessage = JSON.parse(message.toString());
       const keepAlive = new KeepAlive({
@@ -47,6 +51,7 @@ client.on('message', (topic, message) => {
     // Handle sensor data messages
     console.log('Received sensor data message:', message.toString());
     try {
+      console.log('Processing sensor data message');
       const parsedMessage = JSON.parse(message.toString());
       const sensorData = new SensorData({
         Id: parsedMessage.Id,

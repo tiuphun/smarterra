@@ -241,6 +241,13 @@ const keepAliveSchema = new mongoose.Schema({
 
 #### `POST /api/KeepAlive/`
 - **Description**: Submit a new keep-alive record.
+- **Request Example**:
+```json
+{
+  "Id": 1,
+  "alive": true
+}
+```
 - **Response Example**:
 ```json
 [
@@ -250,7 +257,7 @@ const keepAliveSchema = new mongoose.Schema({
     "timestamp": "2024-12-03T12:00:00Z"
   }
 ]
-
+```
 ---
 
 ## MQTT Topics
